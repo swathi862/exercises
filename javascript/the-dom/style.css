@@ -1,0 +1,32 @@
+#movie-schedule{
+    width: auto;
+    margin: 0.5em;
+    height: 40vw;
+    border: 1px solid gray;
+    border-radius: 1em;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.m{
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-size: medium;
+}
+
+.movie{
+    border: 2px dotted gray;
+    padding: 1em;
+    margin: 0.5em;
+    height: 32vw;
+    width: 15vw;
+}
+
+
+.movie-img{
+    height:auto;
+    width: auto;
+    max-width: 210px;
+}
