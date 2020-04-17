@@ -30,3 +30,26 @@
     width: auto;
     max-width: 210px;
 }
+
+.forecast-day{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 1rem;
+}
+
+.hot{
+    background-color: red;
+}
+
+.cold{
+    background-color: lightblue;
+}
+
+.very-cold{
+    background-color: darkblue;
+}
+
+.very-hot{
+    background-color: darkred;
+}

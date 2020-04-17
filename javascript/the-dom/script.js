@@ -350,19 +350,36 @@ var weatherString = `
 
 document.querySelector("#current-weather").innerHTML = weatherString;
 
-var threeDayWeather = `
-<div class ="forecast-day">
-    <h3> ${weatherData["query"]["results"]["channel"]["item"]["forecast"]["day"]}, ${weatherData["query"]["results"]["channel"]["item"]["forecast"]["date"]}</h3>
+const dailyWeatherComponent = (forecast, highTempClassName, lowTempClassName) => { return`
+<div class ="forecast-day ${highTempClassName}">
+    <h3 class = "${lowTempClassName}">${forecast.day}, ${forecast.date}</h3>
 
-    <p> ${weatherData["query"]["results"]["channel"]["item"]["forecast"]["high"]}</p>
-    <p> ${weatherData["query"]["results"]["channel"]["item"]["forecast"]["low"]}</p>
-    <p> ${weatherData["query"]["results"]["channel"]["item"]["forecast"]["text"]}</p>
-</div>
-`
-document.querySelector("#weather-forecast").innerHTML = threeDayWeather;
+    <p class = "${lowTempClassName}"> High: ${forecast.high}</p>
+    <p class = "${lowTempClassName}"> Low: ${forecast.low}</p>
+    <p class = "${lowTempClassName}"> ${forecast.text} </p>
+</div>`
+}
 
-//threeDayWeather needs to be 
+for (let i = 0; i < 3; i++){
+    let threeDayWeather = ""
 
-// console.log(weatherData["query"]["results"]["channel"]["location"]["region"]);
-// console.log(weatherData["query"]["results"]["channel"]["item"]["condition"]["temp"]);
-// console.log(weatherData["query"]["results"]["channel"]["item"]["condition"]["text"]);
+    if ((weatherData.query.results.channel.item.forecast.every(item => item.high > 85)) === true && (weatherData.query.results.channel.item.forecast[i].high) > 95){
+        threeDayWeather = dailyWeatherComponent(weatherData.query.results.channel.item.forecast[i], "hot", "very-hot")
+    }
+    else if ((weatherData.query.results.channel.item.forecast.every(item => item.high > 85)) === true){
+        threeDayWeather = dailyWeatherComponent(weatherData.query.results.channel.item.forecast[i], "hot", "")
+    }
+    else if ((weatherData.query.results.channel.item.forecast.every(item => item.high < 40)) === true && (weatherData.query.results.channel.item.forecast[i].low) < 20){
+        threeDayWeather = dailyWeatherComponent(weatherData.query.results.channel.item.forecast[i], "cold", "very-cold")
+    }
+    else if((weatherData.query.results.channel.item.forecast.every(item => item.high < 40)) === true){
+        threeDayWeather = dailyWeatherComponent(weatherData.query.results.channel.item.forecast[i], "cold", "")
+    }
+    else{
+        threeDayWeather = dailyWeatherComponent(weatherData.query.results.channel.item.forecast[i], "", "")
+    }
+
+    document.querySelector("#weather-forecast").innerHTML += threeDayWeather;
+}
+
+// console.log(weatherData.query.results.channel.item.forecast.every(item => item.high > 85));
